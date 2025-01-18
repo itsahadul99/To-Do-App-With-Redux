@@ -9,7 +9,7 @@ import {
     loadFromStorage,
     ToDo,
 } from "../redux/todosSlice";
-import Bg from '../assets/bg.avif'
+import Bg from '../assets/bg2.avif'
 const ToDos: React.FC = () => {
     const [text, setText] = useState<string>("");
     const [editId, setEditId] = useState<number | null>(null);
@@ -104,10 +104,10 @@ const ToDos: React.FC = () => {
         <div style={{backgroundImage: `url(${Bg})`}} className="min-h-screen bg-gray-100 flex flex-col items-center py-10 bg-no-repeat w-full min-w-full bg-cover">
             {/* Greeting and Clock */}
             <div className="text-center mb-6">
-                <h2 className="text-3xl font-semibold">{greeting}!</h2>
-                <p className="text-lg text-gray-300">{time}</p>
+                <h2 className="text-3xl font-semibold text-white">{greeting}!</h2>
+                <p className="text-lg text-gray-200">{time}</p>
             </div>
-            <h1 className="text-4xl font-bold mb-6">Add Your To Do:</h1>
+            <h1 className="text-4xl font-bold mb-6 text-white">Add Your To Do:</h1>
             <div className="w-11/12 max-w-lg bg-white p-5 mb-6 rounded-lg">
                 <div className="flex items-center space-x-3">
                     <input
@@ -166,7 +166,7 @@ const ToDos: React.FC = () => {
                 )}
             </div>
             <div className="absolute bottom-[10%] right-[4%]">
-                <h1 className="text-lg font-semibold">"{motivation}"</h1>
+                <h1 className="text-xl font-semibold">"{motivation}"</h1>
             </div>
         </div>
     );
