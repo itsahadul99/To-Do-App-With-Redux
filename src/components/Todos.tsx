@@ -101,24 +101,32 @@ const ToDos: React.FC = () => {
         return () => clearInterval(interval);
     }, [])
     return (
-        <div style={{backgroundImage: `url(${Bg})`}} className="min-h-screen bg-gray-100 flex flex-col items-center py-10 bg-no-repeat w-full min-w-full bg-cover">
+        <div
+            style={{ backgroundImage: `url(${Bg})` }}
+            className="min-h-screen bg-gray-100 flex flex-col items-center py-10 bg-no-repeat bg-cover w-full min-w-full"
+        >
             {/* Greeting and Clock */}
-            <div className="text-center mb-6">
-                <h2 className="text-3xl font-semibold text-white">{greeting}!</h2>
-                <p className="text-lg text-gray-200">{time}</p>
+            <div className="text-center mb-6 px-4">
+                <h2 className="text-3xl font-semibold text-white md:text-4xl">{greeting}!</h2>
+                <p className="text-lg text-gray-200 md:text-xl">{time}</p>
             </div>
-            <h1 className="text-4xl font-bold mb-6 text-white">Add Your To Do:</h1>
-            <div className="w-11/12 max-w-lg bg-white p-5 mb-6 rounded-lg">
-                <div className="flex items-center space-x-3">
+
+            <h1 className="text-4xl font-bold mb-6 text-white px-4 md:text-5xl">
+                Add Your To Do:
+            </h1>
+
+            {/* Input Field */}
+            <div className="w-11/12 max-w-lg bg-white p-5 mb-6 rounded-lg shadow-md">
+                <div className="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-3">
                     <input
                         type="text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         placeholder="Enter Your Todo"
-                        className="flex-grow px-4 py-2 border rounded-md focus:outline-none"
+                        className="flex-grow w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                     />
                     <button
-                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        className="w-full sm:w-auto px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300 text-nowrap"
                         onClick={handleAddTodo}
                     >
                         {editId ? "Edit Todo" : "Add Todo"}
@@ -126,49 +134,62 @@ const ToDos: React.FC = () => {
                 </div>
             </div>
 
-            <div className="w-11/12 max-w-lg bg-white p-5 rounded-lg">
+            {/* Todo List */}
+            <div className="w-11/12 max-w-lg bg-white p-5 rounded-lg shadow-md">
                 {todos.length === 0 ? (
                     <p className="text-center text-gray-500">No todos available. Add some!</p>
                 ) : (
-                    <ul>
+                    <ul className=" overflow-y-auto max-h-[340px]">
                         {todos.map((todo) => (
                             <li
                                 key={todo.id}
-                                className={`flex justify-between items-center mb-2 p-2 border rounded ${todo.status ? "bg-green-100" : "bg-gray-50"
+                                className={`flex flex-col sm:flex-row justify-between items-center mb-2 p-2 border rounded ${todo.status ? "bg-green-100" : "bg-gray-50"
                                     }`}
                             >
+                                {/* Todo Text and Timestamp */}
                                 <div className="flex flex-col gap-1 w-full">
                                     <button
-                                        className={`text-start flex-grow cursor-pointer text-lg font-semibold ${todo.status ? "line-through text-gray-500" : "text-gray-900"
+                                        className={`text-start flex-grow cursor-pointer text-lg font-semibold ${todo.status
+                                                ? "line-through text-gray-500"
+                                                : "text-gray-900"
                                             }`}
                                         onClick={() => dispatch(toggleTodo(todo.id))}
                                     >
                                         {todo.text}
                                     </button>
-                                    <span className="text-xs text-gray-500">{new Date(todo.id).toLocaleString()}</span>
+                                    <span className="text-xs text-gray-500">
+                                        {new Date(todo.id).toLocaleString()}
+                                    </span>
                                 </div>
-                                <button
-                                    className="px-2 py-1 text-sm bg-yellow-400 text-white rounded-md hover:bg-yellow-500 disabled:cursor-not-allowed"
-                                    onClick={() => handleEdit(todo.id, todo.text || "")}
-                                    disabled={todo.status}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="px-2 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600 ml-2"
-                                    onClick={() => dispatch(removeTodo(todo.id))}
-                                >
-                                    Delete
-                                </button>
+
+                                {/* Buttons */}
+                                <div className="flex gap-2 mt-2 sm:mt-0 text-start md:justify-end w-full">
+                                    <button
+                                        className="px-2 py-1 text-sm bg-yellow-400 text-white rounded-md hover:bg-yellow-500 disabled:cursor-not-allowed"
+                                        onClick={() => handleEdit(todo.id, todo.text || "")}
+                                        disabled={todo.status}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="px-2 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"
+                                        onClick={() => dispatch(removeTodo(todo.id))}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
                             </li>
                         ))}
                     </ul>
                 )}
             </div>
-            <div className="absolute bottom-[10%] right-[4%]">
-                <h1 className="text-xl font-semibold">"{motivation}"</h1>
+
+            {/* Motivation Section */}
+            <div className=" bottom-[10%] right-[4%] px-4 text-center md:text-right hidden md:absolute">
+                <h1 className="text-lg md:text-xl font-semibold">"{motivation}"</h1>
             </div>
         </div>
+
     );
 };
 
