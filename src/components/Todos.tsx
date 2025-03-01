@@ -122,6 +122,11 @@ const ToDos: React.FC = () => {
                         type="text"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleAddTodo();
+                            }
+                        }}
                         placeholder="Enter Your Todo"
                         className="flex-grow w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
                     />
@@ -147,11 +152,12 @@ const ToDos: React.FC = () => {
                                     }`}
                             >
                                 {/* Todo Text and Timestamp */}
-                                <div className="flex flex-col gap-1 w-full">
+                                <div className="flex flex-col gap-1 w-[80%]">
                                     <button
+                                        title="Mark as Done"
                                         className={`text-start flex-grow cursor-pointer text-lg font-semibold ${todo.status
-                                                ? "line-through text-gray-500"
-                                                : "text-gray-900"
+                                            ? "line-through text-gray-500"
+                                            : "text-gray-900"
                                             }`}
                                         onClick={() => dispatch(toggleTodo(todo.id))}
                                     >
@@ -163,7 +169,7 @@ const ToDos: React.FC = () => {
                                 </div>
 
                                 {/* Buttons */}
-                                <div className="flex gap-2 mt-2 sm:mt-0 text-start md:justify-end w-full">
+                                <div className="flex gap-2 mt-2 sm:mt-0 text-start md:justify-end w-[20%]">
                                     <button
                                         className="px-2 py-1 text-sm bg-yellow-400 text-white rounded-md hover:bg-yellow-500 disabled:cursor-not-allowed"
                                         onClick={() => handleEdit(todo.id, todo.text || "")}

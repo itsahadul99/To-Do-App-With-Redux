@@ -55,7 +55,7 @@ function InstallPrompt() {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              Install Trackforce App
+              Install To Do Keeper App
             </h2>
             <p className="text-gray-600 mb-6">
               Do you want to install this app on your device for a better experience?
